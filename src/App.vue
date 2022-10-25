@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TodoTopBar></TodoTopBar>
+    <TodoTopBar v-bind:name="name"></TodoTopBar>
   </div>
 
 
@@ -9,6 +9,11 @@
 import TodoTopBar from './components/TodoTopBar.vue';
 
 export default {
+  data() {
+    return {
+      name: 'Sam'
+    };
+  },
   components: {
     'TodoTopBar': TodoTopBar
   }

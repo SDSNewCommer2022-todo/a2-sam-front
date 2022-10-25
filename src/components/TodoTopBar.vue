@@ -1,8 +1,8 @@
 <template>
   <body>
   <div class="title">
-    <img src="../assets/ic_topbar_menu.svg" alt="topbarIcon"/>
-    <span>Sam-ToDo</span>
+    <img class="icon" src="../assets/ic_topbar_menu.svg" alt="topbarIcon"/>
+    <span>{{name}}-ToDo</span>
   </div>
   <div class="date">{{ date }}</div>
   </body>
@@ -10,13 +10,23 @@
 
 <script>
 export default {
-  data() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const date = today.getDate();
-    const dateArr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return { date: `${month}/${date} ${dateArr[today.getDay()]}` };
+  props : ["name"],
+  methods: {
+    getDate() {
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const date = today.getDate();
+      const dateArr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      return `${month}/${date} ${dateArr[today.getDay()]}`;
+    }
   },
+  data() {
+    return { date: '' };
+  },
+  created() {
+    this.date = this.getDate();
+  }
+
 };
 </script>
 
@@ -36,7 +46,7 @@ body {
   .title {
     display: flex;
     justify-content: space-around;
-    width: 160px;
+    width: auto;
     height: 28px;
     font-family: 'Roboto';
     font-style: normal;
@@ -48,6 +58,9 @@ body {
     flex: none;
     order: 1;
     flex-grow: 0;
+    .icon{
+      margin-right: 13px;
+    }
   }
 
   .date {
