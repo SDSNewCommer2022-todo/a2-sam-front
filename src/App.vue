@@ -17,8 +17,8 @@ export default {
     };
   },
   components: {
-    WelcomeMessage,
-    'TodoTopBar': TodoTopBar
+    'TodoTopBar': TodoTopBar,
+    'WelcomeMessage': WelcomeMessage,
   }
 
 };

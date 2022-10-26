@@ -7,8 +7,8 @@
   <div class="nameQuestion">
     <p>what is your name?</p>
   </div>
-  <div class="textfiled">
-    <TextFiled></TextFiled>
+  <div class="textFiled">
+    <TextField></TextField>
   </div>
 
   </body>
@@ -20,7 +20,7 @@ import TextFiled from './TextFiled.vue';
 
 export default {
   name: 'WelcomeMessage',
-  components: { TextFiled }
+  components: {'TextField' : TextFiled }
 };
 </script>
 
@@ -51,7 +51,7 @@ body {
     color: #2C3E50;
   }
 
-  .textfiled {
+  .textField {
     margin-top: 20px;
     width: auto;
     height: auto;
