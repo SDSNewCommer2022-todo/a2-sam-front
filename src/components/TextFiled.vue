@@ -56,6 +56,9 @@ export default {
       this.focusFunc();
     }
   },
+  mounted() {
+    this.inputFocus();
+  }
 
 };
 </script>
