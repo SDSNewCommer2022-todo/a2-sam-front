@@ -17,7 +17,7 @@ export default {
       const month = today.getMonth() + 1;
       const date = today.getDate();
       const dateArr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-      return `${month}/${date} ${dateArr[today.getDay()]}`;
+      return `${month}/${date} ${dateArr[today.getDay()-1]}`;
     }
   },
   data() {
@@ -36,7 +36,8 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 16px;
+  padding-left: 16px;
+  padding-right: 16px;
   gap: 530px;
   height: 48px;
   left: 0px;
