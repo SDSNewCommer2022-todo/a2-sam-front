@@ -3,7 +3,7 @@
     <div class="textFieldBorder"
          v-bind:class="{borderBottom: !isBorder, borderAll: isBorder,borderBlue:isFocusing,borderGray:!isFocusing}">
       <input class='inputText' type="text" v-model="nameTodo" placeholder="input your name"
-             aria-label="이름입력" @focus="isFocusing = true" @blur="isFocusing = false"
+             aria-label="이름입력" @focus="isFocusing" @blur="!isFocusing"
              ref="refInput"/>
       <img id="clearBtn" src="../assets/ic_delete.svg" alt="xBtn" v-on:click="clearText"/>  <!--eslint-disable-line-->
 
@@ -103,4 +103,5 @@ export default {
     margin-left: 11px;
   }
 }
+
 </style>
