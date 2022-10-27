@@ -3,9 +3,11 @@
     <div class="textFieldBorder"
          v-bind:class="{borderBottom: !isBorder, borderAll: isBorder,borderBlue:isFocusing,borderGray:!isFocusing}">
       <input class='inputText' type="text" v-model="nameTodo" placeholder="input your name"
-             aria-label="이름입력" @focus="isFocusing" @blur="!isFocusing"
+             aria-label="이름입력" @focus="isFocusing = true" @blur="isFocusing = false"
              ref="refInput"/>
-      <img id="clearBtn" src="../assets/ic_delete.svg" alt="xBtn" v-on:click="clearText"/>  <!--eslint-disable-line-->
+      <div v-on:click="clearText">        <!--eslint-disable-line-->
+        <img v-bind:class='{visible: nameTodo === ""}' class="clearBtn" src="../assets/ic_delete.svg" alt="xBtn" v-on:click="clearText"/> <!--eslint-disable-line-->
+      </div>
 
     </div>
     <img class='sendBtn' id='btnId' ref="sendBtn" src="../assets/ic_send_nor.svg" alt="inputBtn"/>
@@ -21,7 +23,7 @@ export default {
     return {
       nameTodo: '',
       isBorder: false,
-      isFocusing: false
+      isFocusing: true
     };
   },
   methods: {
@@ -39,10 +41,12 @@ export default {
         this.nameTodo = '';
       }
     },
-    clearText() {
-      this.nameTodo = '';
+    inputFocus() {
       this.$refs.refInput.focus();
-    }
+    },
+    clearText() {
+      this.inputFocus();
+    },
   },
   watch: {
     nameTodo() {
@@ -51,11 +55,19 @@ export default {
     isFocusing() {
       this.focusFunc();
     }
+  },
+  mounted() {
+    this.inputFocus();
   }
+
 };
 </script>
 
 <style lang="scss" scoped>
+.visible {
+  visibility: hidden;
+}
+
 .borderBottom {
   border-bottom: 1px solid;
 }
