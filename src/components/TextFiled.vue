@@ -4,11 +4,10 @@
          v-bind:class="{borderBottom: !isBorder, borderAll: isBorder,borderBlue:isFocusing,borderGray:!isFocusing}">
       <input class='inputText' type="text" v-model="nameTodo" placeholder="input your name"
              aria-label="이름입력" @focus="isFocusing = true" @blur="isFocusing = false"
-             ref="refInput" v-on:keyup.enter="sendName"/>
+             ref="refInput" @keyup.enter="sendName()"/>
       <div v-on:click="inputFocus">        <!--eslint-disable-line-->
         <img v-bind:class='{visible: nameTodo === ""}' class="clearBtn" src="../assets/ic_delete.svg" alt="xBtn"/> <!--eslint-disable-line-->
       </div>
-
     </div>
     <img class='sendBtn' id='btnId' ref="sendBtn" src="../assets/ic_send_nor.svg" alt="inputBtn" v-on:click="sendName"/> <!--eslint-disable-line-->
 
@@ -53,6 +52,10 @@ export default {
     sendName() {
       if (this.tmpName !== '') {
         this.saveName(this.tmpName);
+        this.$router.push('/todo');
+      }
+      if (this.nameTodo !== ''){
+        this.saveName(this.nameTodo);
         this.$router.push('/todo');
       }
     }
