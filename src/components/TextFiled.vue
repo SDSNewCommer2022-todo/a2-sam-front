@@ -2,7 +2,7 @@
   <div class="textField">
     <div class="textFieldBorder"
          v-bind:class="{borderBottom: !isBorder, borderAll: isBorder,borderBlue:isFocusing,borderGray:!isFocusing}">
-      <input class='inputText' type="text" v-model="nameTodo" placeholder="input your name"
+      <input class='inputText' type="text" v-model="nameTodo" placeholder="Input your name"
              aria-label="이름입력" @focus="isFocusing = true" @blur="isFocusing = false"
              ref="refInput" @keyup.enter="sendName()"/>
       <div v-on:click="inputFocus">        <!--eslint-disable-line-->
@@ -19,11 +19,11 @@ import { mapMutations } from 'vuex';
 
 export default {
   name: 'TextFiled',
+  props:['isBorder'],
   data() {
     return {
       nameTodo: '',
       tmpName : '',
-      isBorder: false,
       isFocusing: true
     };
   },
@@ -83,9 +83,11 @@ export default {
 
 .borderBottom {
   border-bottom: 1px solid;
+  padding: 4px;
 }
 
 .borderAll {
+  padding: 12px;
   border-width: 1px;
   border-radius: 5px;
   border-style: solid;
@@ -115,13 +117,18 @@ export default {
       height: auto;
       outline: none;
       border: none;
-      margin: 5px;
       background: transparent;
+      font-size: 16px;
     }
 
     input:focus::placeholder {
       color: transparent;
     }
+
+    input::placeholder{
+      color: #CCCCCC;
+    }
+
   }
 
   .sendBtn {

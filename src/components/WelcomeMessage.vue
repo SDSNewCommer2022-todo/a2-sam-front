@@ -8,7 +8,7 @@
     <p>what is your name?</p>
   </div>
   <div class="textFiled">
-    <TextField></TextField>
+    <TextField v-bind:isBorder="false"></TextField>
   </div>
 
   </body>
