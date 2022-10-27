@@ -1,18 +1,18 @@
 <template>
   <div class="todo">
-    <p class="greet">{{ greet }}, {{ $store.state.inputName }}</p>
+    <p class="greet">{{ greet }}, {{ $store.state.inputContent }}</p>
     <div class="notice">
       <p class="noticeText">You've got</p>
-      <p class="noticeTask">0 / 0</p>
+      <p class="noticeTask">0 / {{totalTask}}</p>
       <p class="noticeText">task Today!</p>
     </div>
-    <TextField v-bind:isBorder="true"></TextField>
-
+    <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
   </div>
 
 </template>
 
 <script>
+import axios from 'axios';
 import TextFiled from './TextFiled.vue';
 
 export default {
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       greet: '',
+      totalTask : 0
     };
   },
   components: {
@@ -39,7 +40,18 @@ export default {
         greet = 'Good night';
       }
       return greet;
-    }
+    },
+    submitTask(content){
+      axios.post(`http://localhost:8080/todo`, {
+        'owner' : this.$store.state.inputContent,
+        'content' : content,
+      }).then((response) => {
+        console.log(response);
+        this.totalTask += 1;
+      }).catch((error) => {
+        console.log(error);
+      });
+    },
   },
   created() {
     this.greet = this.getGreet();
