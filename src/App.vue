@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <TodoTopBar v-bind:name="name"></TodoTopBar>
+    <router-view></router-view>
     <WelcomeMessage></WelcomeMessage>
   </div>
 
@@ -8,7 +9,6 @@
 </template>
 <script>
 import TodoTopBar from './components/TodoTopBar.vue';
-import WelcomeMessage from './components/WelcomeMessage.vue';
 
 export default {
   data() {
@@ -18,7 +18,6 @@ export default {
   },
   components: {
     'TodoTopBar': TodoTopBar,
-    'WelcomeMessage': WelcomeMessage,
   }
 
 };
