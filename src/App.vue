@@ -2,7 +2,6 @@
   <div id="app">
     <TodoTopBar v-bind:name="name"></TodoTopBar>
     <router-view></router-view>
-    <WelcomeMessage></WelcomeMessage>
   </div>
 
 

@@ -6,13 +6,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    inputName: ''
+    inputContent: ''
   },
   getters: {
   },
   mutations: {
-    saveName(state, name){
-      state.inputName = name;
+    saveContent(state, content){
+      state.inputContent = content;
     }
   },
   actions: {
