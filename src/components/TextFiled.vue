@@ -19,13 +19,13 @@ import { mapMutations } from 'vuex';
 
 export default {
   name: 'TextFiled',
-  props:['isBorder'],
+  props: ['isBorder'],
   data() {
     return {
       nameTodo: '',
-      tmpName : '',
+      tmpName: '',
       isFocusing: true,
-      myPlaceHolder : ''
+      myPlaceHolder: ''
     };
   },
   methods: {
@@ -51,22 +51,21 @@ export default {
       this.$refs.refInput.focus();
     },
     sendName() {
-      if(this.isBorder){
-        if (this.nameTodo !== ''){
-          this.$emit('submit',this.nameTodo)
-          this.nameTodo = ''
-          this.tmpName = ''
+      if (this.isBorder) {
+        if (this.nameTodo !== '') {
+          this.$emit('submit', this.nameTodo);
+          this.nameTodo = '';
+          this.tmpName = '';
         }
         if (this.tmpName !== '') {
-          this.$emit('submit',this.tmpName)
+          this.$emit('submit', this.tmpName);
         }
 
-
-      }else{
-        if (this.nameTodo !== ''){
+      } else {
+        if (this.nameTodo !== '') {
           this.saveName(this.nameTodo);
           this.$router.push('/todo');
-          this.tmpName = ''
+          this.tmpName = '';
         }
         if (this.tmpName !== '') {
           this.saveName(this.tmpName);
@@ -75,10 +74,10 @@ export default {
 
       }
     },
-    getPlaceHolder(){
-      let text = 'Input your name'
-      if(this.isBorder){
-        text = 'Enter your task'
+    getPlaceHolder() {
+      let text = 'Input your name';
+      if (this.isBorder) {
+        text = 'Enter your task';
       }
       return text;
     }
@@ -93,10 +92,10 @@ export default {
     }
   },
   mounted() {
-    if(!this.isBorder){
+    if (!this.isBorder) {
       this.inputFocus();
     }
-    this.myPlaceHolder = this.getPlaceHolder()
+    this.myPlaceHolder = this.getPlaceHolder();
   }
 
 };
@@ -151,7 +150,7 @@ export default {
       color: transparent;
     }
 
-    input::placeholder{
+    input::placeholder {
       color: #CCCCCC;
     }
 

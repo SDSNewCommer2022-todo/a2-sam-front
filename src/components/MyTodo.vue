@@ -45,11 +45,9 @@ export default {
       axios.post(`http://localhost:8080/todo`, {
         'owner' : this.$store.state.inputContent,
         'content' : content,
-      }).then((response) => {
-        console.log(response);
+      }).then(() => {
         this.totalTask += 1;
-      }).catch((error) => {
-        console.log(error);
+      }).catch(() => {
       });
     },
   },
