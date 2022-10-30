@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <div class="container">
   <div class="welcome">
     <p>Welcome Newbie!!</p>
     <p>MyTodo makes it easy to stay organized and message your life.</p>
@@ -11,7 +11,7 @@
     <TextField v-bind:isBorder="false"></TextField>
   </div>
 
-  </body>
+  </div>
 </template>
 
 
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-body {
+.container {
   position: absolute;
   width: auto;
   height: auto;

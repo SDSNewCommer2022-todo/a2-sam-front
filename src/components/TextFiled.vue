@@ -6,7 +6,7 @@
              aria-label="이름입력" @focus="isFocusing = true" @blur="isFocusing = false"
              ref="refInput" @keyup.enter="sendName()"/>
       <div v-on:click="inputFocus">        <!--eslint-disable-line-->
-        <img v-bind:class='{visible: nameTodo === ""}' class="clearBtn" src="../assets/ic_delete.svg" alt="xBtn"/> <!--eslint-disable-line-->
+        <img v-bind:class='{visible: nameTodo === ""}' ref ="clearBtn" class="clearBtn" src="../assets/ic_delete.svg" alt="xBtn" v-on:click="clearText"/> <!--eslint-disable-line-->
       </div>
     </div>
     <img class='sendBtn' id='btnId' ref="sendBtn" src="../assets/ic_send_nor.svg" alt="inputBtn" v-on:click="sendName"/> <!--eslint-disable-line-->
@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       nameTodo: '',
-      tmpName: '',
       isFocusing: true,
       myPlaceHolder: ''
     };
@@ -32,19 +31,28 @@ export default {
     ...mapMutations({
       saveName: 'saveContent',
     }),
+    clearText(){
+      this.nameTodo = '';
+    },
     questionFunc() {
       if (this.nameTodo.length > 0) {
         const sendHov = require('../assets/ic_send_hov.svg'); // eslint-disable-line global-require
         this.$refs.sendBtn.src = sendHov;
+        this.$refs.sendBtn.style.cursor = "pointer";
+        this.$refs.clearBtn.style.cursor = "pointer";
       } else if (this.nameTodo.length === 0) {
         const sendNor = require('../assets/ic_send_nor.svg'); // eslint-disable-line global-require
         this.$refs.sendBtn.src = sendNor;
+        this.$refs.sendBtn.style.cursor = "default";
+        this.$refs.clearBtn.style.cursor = "default";
+
       }
     },
     focusFunc() {
       if (!this.isFocusing) {
-        this.tmpName = this.nameTodo;
-        this.nameTodo = '';
+        if(this.nameTodo === ''){
+          this.nameTodo = '';
+        }
       }
     },
     inputFocus() {
@@ -55,23 +63,13 @@ export default {
         if (this.nameTodo !== '') {
           this.$emit('submit', this.nameTodo);
           this.nameTodo = '';
-          this.tmpName = '';
-        }
-        if (this.tmpName !== '') {
-          this.$emit('submit', this.tmpName);
         }
 
-      } else {
+      } else if(!this.isBorder) {
         if (this.nameTodo !== '') {
           this.saveName(this.nameTodo);
           this.$router.push('/todo');
-          this.tmpName = '';
         }
-        if (this.tmpName !== '') {
-          this.saveName(this.tmpName);
-          this.$router.push('/todo');
-        }
-
       }
     },
     getPlaceHolder() {
