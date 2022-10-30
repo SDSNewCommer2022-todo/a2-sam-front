@@ -1,11 +1,11 @@
 <template>
-  <body>
+  <div class="container">
   <div class="title">
     <img class="icon" src="../assets/ic_topbar_menu.svg" alt="topbarIcon"/>
     <span>{{name}}-ToDo</span>
   </div>
   <div class="date">{{ date }}</div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-body {
+.container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
