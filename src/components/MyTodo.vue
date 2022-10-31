@@ -1,12 +1,17 @@
 <template>
   <div class="todo">
-    <p class="greet">{{ greet }}, {{ $store.state.inputContent }}</p>
-    <div class="notice">
-      <p class="noticeText">You've got</p>
-      <p class="noticeTask">0 / {{totalTask}}</p>
-      <p class="noticeText">task Today!</p>
+    <div class="todoTop">
+      <p class="greet" >{{ greet }}, {{ $store.state.inputContent }}</p>
+      <div class="notice">
+        <p class="noticeText">You've got</p>
+        <p class="noticeTask">0 / {{ totalTask }}</p>
+        <p class="noticeText">task Today!</p>
+      </div>
+      <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
     </div>
-    <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
+    <div class="todoDown">
+      <MyDropdown :items="items"> </MyDropdown>
+    </div>
   </div>
 
 </template>
@@ -14,17 +19,20 @@
 <script>
 import axios from 'axios';
 import TextFiled from './TextFiled.vue';
+import MyDropdown from './MyDropdown.vue';
 
 export default {
   name: 'MyTodo',
   data() {
     return {
       greet: '',
-      totalTask : 0
+      totalTask: 0,
+      items: ['Oldest','Latest']
     };
   },
   components: {
-    'TextField': TextFiled
+    'TextField': TextFiled,
+    'MyDropdown': MyDropdown
   },
   methods: {
     getGreet() {
@@ -41,14 +49,16 @@ export default {
       }
       return greet;
     },
-    submitTask(content){
+    submitTask(content) {
       axios.post(`http://localhost:8080/todo`, {
-        'owner' : this.$store.state.inputContent,
-        'content' : content,
-      }).then(() => {
-        this.totalTask += 1;
-      }).catch(() => {
-      });
+        'owner': this.$store.state.inputContent,
+        'content': content,
+      })
+        .then(() => {
+          this.totalTask += 1;
+        })
+        .catch(() => {
+        });
     },
   },
   created() {
@@ -58,34 +68,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.todo {
+.todo{
   display: flex;
-  margin-left: 60px;
-  margin-right: 60px;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
-  height: fit-content;
 
-
-  .greet {
+  .todoTop {
     display: flex;
-    align-items: center;
-    height: 36px;
-    margin-top: 24px;
-    color: #2C3E50;
-    font-size: 24px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-  }
+    margin-left: 60px;
+    margin-right: 60px;
+    flex-direction: column;
+    width: 100%;
+    height: 324px;
 
-  .notice {
-    margin-top: 16px;
-    margin-bottom: 16px;
 
-    .noticeText {
+    .greet {
       display: flex;
       align-items: center;
       height: 36px;
+      margin-top: 24px;
       color: #2C3E50;
       font-size: 24px;
       font-family: 'Roboto';
@@ -93,16 +95,37 @@ export default {
       font-weight: 400;
     }
 
-    .noticeTask {
-      display: flex;
-      align-items: center;
-      height: 72px;
-      font-size: 48px;
-      color: #2C3E50;
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 700;
+    .notice {
+      margin-top: 16px;
+      margin-bottom: 16px;
+
+      .noticeText {
+        display: flex;
+        align-items: center;
+        height: 36px;
+        color: #2C3E50;
+        font-size: 24px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .noticeTask {
+        display: flex;
+        align-items: center;
+        height: 72px;
+        font-size: 48px;
+        color: #2C3E50;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+      }
     }
+  }
+  .todoDown{
+    background: #F2F2F2;
+    height: 100%;
+    width: 100%;
   }
 }
 </style>
