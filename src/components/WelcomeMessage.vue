@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-  <div class="welcome">
+  <div class="container__welcome">
     <p>Welcome Newbie!!</p>
     <p>MyTodo makes it easy to stay organized and message your life.</p>
   </div>
-  <div class="nameQuestion">
+  <div class="container__nameQuestion">
     <p>what is your name?</p>
   </div>
-  <div class="textFiled">
-    <TextField v-bind:isBorder="false"></TextField>
+  <div class="container__textField">
+    <TextField v-bind:isBorder="false" @submit="setName"></TextField>
   </div>
 
   </div>
@@ -16,11 +16,21 @@
 
 
 <script>
+import { mapMutations } from 'vuex';
 import TextFiled from './TextFiled.vue';
 
 export default {
   name: 'WelcomeMessage',
-  components: {'TextField' : TextFiled }
+  components: {'TextField' : TextFiled },
+  methods:{
+    ...mapMutations({
+      saveName: 'saveContent',
+    }),
+    setName(name){
+      this.saveName(name);
+      this.$router.push('/todo');
+    }
+  }
 };
 </script>
 
@@ -32,7 +42,7 @@ export default {
   left: 120px;
   top: 108px;
 
-  .welcome {
+  .container__welcome {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
@@ -41,7 +51,7 @@ export default {
     color: #2C3E50;
   }
 
-  .nameQuestion {
+  .container__nameQuestion {
     margin-top: 24px;
     font-family: 'Roboto';
     font-style: normal;
@@ -51,7 +61,7 @@ export default {
     color: #2C3E50;
   }
 
-  .textField {
+  .container__textField {
     margin-top: 20px;
     width: auto;
     height: auto;
