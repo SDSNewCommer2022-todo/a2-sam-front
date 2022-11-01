@@ -1,9 +1,10 @@
 <template>
   <div>
     <div class="menuItem" :tabindex="-1" @blur="isOpen = false">
-      <div class="menuItem__selectedItem" @click="isOpen = !isOpen">        <!--eslint-disable-line-->
+      <div class="menuItem__selectedItem" @click="isOpen = !isOpen">         <!--eslint-disable-line-->
         <p>{{ selectedItem }}</p>
-        <img ref="menuItem__selectedItem--arrowIcon" src="../assets/ic_arrow_down.svg" alt="arrow"/>
+        <img ref="menuItem__selectedItem--arrowIcon" :src="!isOpen ? arrowDown : arrowUp"
+             alt="arrow"/>
       </div>
       <div class="menuItem__subMenu" :class="{ selectHide : !isOpen }">
         <div class="menuItem__subMenu--items" v-for="(item,i) in items" :key="i" @click="selectOption(item)"> <!--eslint-disable-line-->
@@ -12,10 +13,12 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
+import iconUp from '@/assets/ic_arrow_up.svg';
+import iconDown from '@/assets/ic_arrow_down.svg';
+
 export default {
   name: 'MyDropdown',
   props: ['items'],
@@ -23,6 +26,8 @@ export default {
     return {
       selectedItem: this.items[0],
       isOpen: false,
+      arrowUp: iconUp,
+      arrowDown: iconDown,
     };
   },
   methods: {
@@ -30,20 +35,8 @@ export default {
       this.selectedItem = item;
       this.isOpen = false;
     },
-    changeIcon() {
-      if (!this.isOpen) {
-        this.$refs.arrowIcon.src = require('../assets/ic_arrow_down.svg');// eslint-disable-line global-require
-      } else {
-        this.$refs.arrowIcon.src = require('../assets/ic_arrow_up.svg');// eslint-disable-line global-require
-      }
-    }
 
   },
-  watch: {
-    isOpen() {
-      this.changeIcon();
-    }
-  }
 };
 </script>
 
