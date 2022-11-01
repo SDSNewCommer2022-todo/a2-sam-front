@@ -1,21 +1,21 @@
 <template>
   <div class="textField">
-    <div class="textFieldBorder"
+    <div class="textField__border"
          v-bind:class="{borderBottom: !isBorder, borderAll: isBorder,borderBlue:isFocusing,borderGray:!isFocusing}">
-      <input class='inputText' type="text" v-model="nameTodo" :placeholder=myPlaceHolder
+      <input class='textField__border--inputText' type="text" v-model="nameTodo" :placeholder=myPlaceHolder
              aria-label="이름입력" @focus="isFocusing = true" @blur="isFocusing = false"
              ref="refInput" @keyup.enter="sendName()"/>
       <div v-on:click="inputFocus">        <!--eslint-disable-line-->
-        <img v-bind:class='{visible: nameTodo === ""}' ref ="clearBtn" class="clearBtn" src="../assets/ic_delete.svg" alt="xBtn" v-on:click="clearText"/> <!--eslint-disable-line-->
+        <img v-bind:class='{visible: nameTodo === "",pointerCursor: nameTodo !== ""}' src="../assets/ic_delete.svg" alt="xBtn" v-on:click="clearText"/> <!--eslint-disable-line-->
       </div>
     </div>
-    <img class='sendBtn' id='btnId' ref="sendBtn" src="../assets/ic_send_nor.svg" alt="inputBtn" v-on:click="sendName"/> <!--eslint-disable-line-->
-
+    <img class='textField__sendBtn' :src="nameTodo ==='' ? sendNor : sendHov" alt="inputBtn" v-on:click="sendName" :class="{pointerCursor: nameTodo !== ''}"/> <!--eslint-disable-line-->
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import hov from '@/assets/ic_send_hov.svg'
+import nor from '@/assets/ic_send_nor.svg'
 
 export default {
   name: 'TextFiled',
@@ -24,53 +24,23 @@ export default {
     return {
       nameTodo: '',
       isFocusing: true,
-      myPlaceHolder: ''
+      myPlaceHolder: '',
+      sendHov : hov,
+      sendNor : nor
     };
   },
   methods: {
-    ...mapMutations({
-      saveName: 'saveContent',
-    }),
     clearText(){
       this.nameTodo = '';
-    },
-    questionFunc() {
-      if (this.nameTodo.length > 0) {
-        const sendHov = require('../assets/ic_send_hov.svg'); // eslint-disable-line global-require
-        this.$refs.sendBtn.src = sendHov;
-        this.$refs.sendBtn.style.cursor = "pointer";
-        this.$refs.clearBtn.style.cursor = "pointer";
-      } else if (this.nameTodo.length === 0) {
-        const sendNor = require('../assets/ic_send_nor.svg'); // eslint-disable-line global-require
-        this.$refs.sendBtn.src = sendNor;
-        this.$refs.sendBtn.style.cursor = "default";
-        this.$refs.clearBtn.style.cursor = "default";
-
-      }
-    },
-    focusFunc() {
-      if (!this.isFocusing) {
-        if(this.nameTodo === ''){
-          this.nameTodo = '';
-        }
-      }
     },
     inputFocus() {
       this.$refs.refInput.focus();
     },
     sendName() {
-      if (this.isBorder) {
         if (this.nameTodo !== '') {
           this.$emit('submit', this.nameTodo);
           this.nameTodo = '';
         }
-
-      } else if(!this.isBorder) {
-        if (this.nameTodo !== '') {
-          this.saveName(this.nameTodo);
-          this.$router.push('/todo');
-        }
-      }
     },
     getPlaceHolder() {
       let text = 'Input your name';
@@ -80,15 +50,7 @@ export default {
       return text;
     }
   },
-  watch: {
-    nameTodo() {
-      this.questionFunc();
 
-    },
-    isFocusing() {
-      this.focusFunc();
-    }
-  },
   mounted() {
     if (!this.isBorder) {
       this.inputFocus();
@@ -123,19 +85,21 @@ export default {
 .borderGray {
   border-color: #CCCCCC;
 }
-
+.pointerCursor{
+  cursor: pointer;
+}
 .textField {
   width: 100%;
   height: fit-content;
   display: flex;
 
-  .textFieldBorder {
+  .textField__border {
     display: flex;
-    width: 100%;
+    width: calc(100% - 25px);
     height: fit-content;
     align-content: center;
 
-    .inputText {
+    .textField__border--inputText {
       width: calc(100% - 25px);
       height: auto;
       outline: none;
@@ -143,7 +107,6 @@ export default {
       background: transparent;
       font-size: 16px;
     }
-
     input:focus::placeholder {
       color: transparent;
     }
@@ -154,7 +117,7 @@ export default {
 
   }
 
-  .sendBtn {
+  .textField__sendBtn {
     margin-left: 11px;
   }
 }

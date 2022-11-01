@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
-  <div class="title">
-    <img class="icon" src="../assets/ic_topbar_menu.svg" alt="topbarIcon"/>
+  <div class="TodoTopBar">
+  <div class="TodoTopBar__title">
+    <img class="TodoTopBar__title--icon" src="../assets/ic_topbar_menu.svg" alt="topbarIcon"/>
     <span>{{name}}-ToDo</span>
   </div>
-  <div class="date">{{ date }}</div>
+  <div class="TodoTopBar__date">{{ date }}</div>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.TodoTopBar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -44,7 +44,7 @@ export default {
   top: 0px;
   background: #6C77A7;
 
-  .title {
+  .TodoTopBar__title {
     display: flex;
     justify-content: space-around;
     width: auto;
@@ -59,12 +59,12 @@ export default {
     flex: none;
     order: 1;
     flex-grow: 0;
-    .icon{
+    .TodoTopBar__title--icon{
       margin-right: 13px;
     }
   }
 
-  .date {
+  .TodoTopBar__date {
     width: auto;
     height: 19px;
     font-family: 'Roboto';

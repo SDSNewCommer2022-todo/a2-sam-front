@@ -1,15 +1,15 @@
 <template>
   <div class="todo">
-    <div class="todoTop">
-      <p class="greet" >{{ greet }}, {{ $store.state.inputContent }}</p>
-      <div class="notice">
-        <p class="noticeText">You've got</p>
-        <p class="noticeTask">0 / {{ totalTask }}</p>
-        <p class="noticeText">task Today!</p>
+    <div class="todo__todoTop">
+      <p class="todo__todoTop--greet" >{{ greet }}, {{ $store.state.inputContent }}</p>
+      <div class="todo__todoTop--notice">
+        <p class="todo__todoTop--noticeText">You've got</p>
+        <p class="todo__todoTop--noticeTask">0 / {{ totalTask }}</p>
+        <p class="todo__todoTop--noticeText">task Today!</p>
       </div>
       <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
     </div>
-    <div class="todoDown">
+    <div class="todo__todoDown">
       <MyDropdown :items="items"> </MyDropdown>
     </div>
   </div>
@@ -74,16 +74,16 @@ export default {
   height: 100%;
   flex-direction: column;
 
-  .todoTop {
+  .todo__todoTop {
     display: flex;
     margin-left: 60px;
     margin-right: 60px;
     flex-direction: column;
-    width: 100%;
+    width: calc(100% - 120px);
     height: 324px;
 
 
-    .greet {
+    .todo__todoTop--greet {
       display: flex;
       align-items: center;
       height: 36px;
@@ -95,11 +95,11 @@ export default {
       font-weight: 400;
     }
 
-    .notice {
+    .todo__todoTop--notice {
       margin-top: 16px;
       margin-bottom: 16px;
 
-      .noticeText {
+      .todo__todoTop--noticeText {
         display: flex;
         align-items: center;
         height: 36px;
@@ -110,7 +110,7 @@ export default {
         font-weight: 400;
       }
 
-      .noticeTask {
+      .todo__todoTop--noticeTask {
         display: flex;
         align-items: center;
         height: 72px;
@@ -122,7 +122,7 @@ export default {
       }
     }
   }
-  .todoDown{
+  .todo__todoDown{
     background: #F2F2F2;
     height: 100%;
     width: 100%;

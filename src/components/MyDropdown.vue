@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="menu-item" :tabindex="-1" @blur="isOpen = false">
-      <div class="selectedItem" @click="isOpen = !isOpen">        <!--eslint-disable-line-->
+    <div class="menuItem" :tabindex="-1" @blur="isOpen = false">
+      <div class="menuItem__selectedItem" @click="isOpen = !isOpen">        <!--eslint-disable-line-->
         <p>{{ selectedItem }}</p>
-        <img ref="arrowIcon" src="../assets/ic_arrow_down.svg" alt="arrow"/>
+        <img ref="menuItem__selectedItem--arrowIcon" src="../assets/ic_arrow_down.svg" alt="arrow"/>
       </div>
-      <div class="sub-menu" :class="{ selectHide : !isOpen }">
-        <div class="items" v-for="(item,i) in items" :key="i" @click="selectOption(item)"> <!--eslint-disable-line-->
+      <div class="menuItem__subMenu" :class="{ selectHide : !isOpen }">
+        <div class="menuItem__subMenu--items" v-for="(item,i) in items" :key="i" @click="selectOption(item)"> <!--eslint-disable-line-->
           <p :class="{ selectedOption : item === selectedItem}">{{ item }}</p>
         </div>
       </div>
@@ -68,14 +68,14 @@ p {
   line-height: 18px;
 }
 
-.menu-item {
+.menuItem {
   background-color: #FFFFFF;
   width: max-content;
   height: max-content;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 
-  .selectedItem {
+  .menuItem__selectedItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,8 +84,8 @@ p {
     padding: 0px 12px;
   }
 
-  .sub-menu {
-    .items {
+  .menuItem__subMenu {
+    .menuItem__subMenu--items {
       display: flex;
       width: 120px;
       height: 40px;
