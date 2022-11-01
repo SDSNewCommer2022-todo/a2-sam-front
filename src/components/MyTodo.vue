@@ -10,7 +10,12 @@
       <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
     </div>
     <div class="todo__todoDown">
-      <MyDropdown :items="items"> </MyDropdown>
+      <div class="todo__todoDown--options">
+        <MyDropdown :items="items"> </MyDropdown>
+      </div>
+      <div class="todo__todoDown--todolist">
+      <MyTodoList></MyTodoList>
+      </div>
     </div>
   </div>
 
@@ -20,6 +25,7 @@
 import axios from 'axios';
 import TextFiled from './TextFiled.vue';
 import MyDropdown from './MyDropdown.vue';
+import myTodoList from './MyTodoList.vue';
 
 export default {
   name: 'MyTodo',
@@ -32,7 +38,8 @@ export default {
   },
   components: {
     'TextField': TextFiled,
-    'MyDropdown': MyDropdown
+    'MyDropdown': MyDropdown,
+    'MyTodoList' : myTodoList
   },
   methods: {
     getGreet() {
@@ -75,12 +82,13 @@ export default {
   flex-direction: column;
 
   .todo__todoTop {
-    display: flex;
+    display: block;
     margin-left: 60px;
     margin-right: 60px;
     flex-direction: column;
     width: calc(100% - 120px);
     height: 324px;
+    margin-bottom: 40px;
 
 
     .todo__todoTop--greet {
@@ -122,10 +130,21 @@ export default {
       }
     }
   }
+
   .todo__todoDown{
+    display: flex;
+    flex-direction: column;
     background: #F2F2F2;
+    min-height: 400px;
     height: 100%;
     width: 100%;
+    .todo__todoDown--options{
+      display: flex;
+      padding: 24px 60px;
+    }
+    .todo__todoDown--todolist{
+      height: 100%;
+    }
   }
 }
 </style>

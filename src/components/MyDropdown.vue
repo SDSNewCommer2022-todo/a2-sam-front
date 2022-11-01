@@ -42,9 +42,6 @@ export default {
 
 <style lang="scss" scoped>
 
-.open {
-}
-
 .selectedOption {
   color: #2a82f0;
 }
@@ -62,9 +59,10 @@ p {
 }
 
 .menuItem {
+  position: absolute;
   background-color: #FFFFFF;
   width: max-content;
-  height: max-content;
+  height: auto;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 
