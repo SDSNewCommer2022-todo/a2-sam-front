@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class=container>
     <TodoTopBar v-bind:name="name"></TodoTopBar>
     <router-view></router-view>
   </div>
@@ -20,6 +20,15 @@ export default {
   }
 
 };
+
 </script>
 <style lang="scss">
+TodoTopBar{
+  width: 100vw;
+}
+.container {
+  display: block;
+  flex-direction: column;
+
+}
 </style>
