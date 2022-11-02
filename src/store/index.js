@@ -10,11 +10,21 @@ export default new Vuex.Store({
     todoList: []
   },
   getters: {
+    getOwner(state){
+      return state.inputContent;
+    }
   },
   mutations: {
     saveContent(state, content){
       state.inputContent = content;
+    },
+    pushData(state, content){
+      state.todoList.push(content);
+    },
+    addList(state, content){
+      state.todoList = content;
     }
+
   },
   actions: {
   },

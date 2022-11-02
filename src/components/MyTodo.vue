@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
     <div class="todo__todoTop">
-      <p class="todo__todoTop--greet" >{{ greet }}, {{ $store.state.inputContent }}</p>
+      <p class="todo__todoTop--greet" >{{ greet }}, {{ $store.getters.getOwner }}</p>
       <div class="todo__todoTop--notice">
         <p class="todo__todoTop--noticeText">You've got</p>
         <p class="todo__todoTop--noticeTask">0 / {{ totalTask }}</p>
@@ -22,10 +22,11 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import axios from 'axios';
 import TextFiled from './TextFiled.vue';
 import MyDropdown from './MyDropdown.vue';
-import myTodoList from './MyTodoList.vue';
+import MyTodoList from './MyTodoList.vue';
 
 export default {
   name: 'MyTodo',
@@ -39,9 +40,13 @@ export default {
   components: {
     'TextField': TextFiled,
     'MyDropdown': MyDropdown,
-    'MyTodoList' : myTodoList
+    'MyTodoList' : MyTodoList
   },
   methods: {
+    ...mapMutations({
+      pushData : 'pushData',
+      addList : 'addList'
+    }),
     getGreet() {
       let greet = '';
       const now = new Date().getHours();
@@ -57,26 +62,26 @@ export default {
       return greet;
     },
     submitTask(content) {
-      axios.post(`http://localhost:8080/api/create`, {
-        'owner': this.$store.state.inputContent,
+      axios.post(`http://localhost:8080/api/post`, {
+        'owner': this.$store.getters.getOwner,
         'content': content,
       })
         .then((res) => {
           this.totalTask += 1;
-          this.$store.state.todoList.push(res.data)
+          this.pushData(res.data);
         })
         .catch(() => {
         });
     },
     /*eslint-disable*/
     getList(){
-      axios.get(`http://localhost:8080/api/read?owner=${this.$store.state.inputContent}`)
+      axios.get(`http://localhost:8080/api/todo?owner=${this.$store.getters.getOwner}`)
         .then((res) =>{
           const todoList = res.data;
           for(let idx in todoList){
             todoList[idx].status === 'DELETED' ? todoList.splice(idx,1) : '';
           }
-          this.$store.state.todoList = todoList;
+          this.addList(todoList);
           this.totalTask = todoList.length
         })
     }
