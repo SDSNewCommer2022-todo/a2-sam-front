@@ -62,7 +62,7 @@ export default {
       return greet;
     },
     submitTask(content) {
-      axios.post(`http://localhost:8080/api/post`, {
+      axios.post(`http://localhost:8080/api/todo`, {
         'owner': this.$store.getters.getOwner,
         'content': content,
       })
@@ -75,7 +75,7 @@ export default {
     },
     /*eslint-disable*/
     getList(){
-      axios.get(`http://localhost:8080/api/todo?owner=${this.$store.getters.getOwner}`)
+      axios.get(`http://localhost:8080/api/?owner=${this.$store.getters.getOwner}`)
         .then((res) =>{
           const todoList = res.data;
           for(let idx in todoList){
