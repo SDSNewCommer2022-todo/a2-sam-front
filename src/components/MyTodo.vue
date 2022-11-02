@@ -14,7 +14,7 @@
         <MyDropdown :items="items"> </MyDropdown>
       </div>
       <div class="todo__todoDown--todolist">
-      <MyTodoList></MyTodoList>
+      <MyTodoList @getList="getList"></MyTodoList>
       </div>
     </div>
   </div>
@@ -57,19 +57,33 @@ export default {
       return greet;
     },
     submitTask(content) {
-      axios.post(`http://localhost:8080/todo`, {
+      axios.post(`http://localhost:8080/api/create`, {
         'owner': this.$store.state.inputContent,
         'content': content,
       })
-        .then(() => {
+        .then((res) => {
           this.totalTask += 1;
+          this.$store.state.todoList.push(res.data)
         })
         .catch(() => {
         });
     },
+    /*eslint-disable*/
+    getList(){
+      axios.get(`http://localhost:8080/api/read?owner=${this.$store.state.inputContent}`)
+        .then((res) =>{
+          const todoList = res.data;
+          for(let idx in todoList){
+            todoList[idx].status === 'DELETED' ? todoList.splice(idx,1) : '';
+          }
+          this.$store.state.todoList = todoList;
+          this.totalTask = todoList.length
+        })
+    }
   },
   created() {
     this.greet = this.getGreet();
+    this.getList();
   }
 };
 </script>
@@ -143,6 +157,7 @@ export default {
       padding: 24px 60px;
     }
     .todo__todoDown--todolist{
+      display: flex;
       height: 100%;
     }
   }
