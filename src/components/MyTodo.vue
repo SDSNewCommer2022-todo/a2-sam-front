@@ -91,8 +91,6 @@ export default {
 <style lang="scss" scoped>
 .todo{
   display: flex;
-  width: 100%;
-  height: 100%;
   flex-direction: column;
 
   .todo__todoTop {
@@ -100,9 +98,7 @@ export default {
     margin-left: 60px;
     margin-right: 60px;
     flex-direction: column;
-    width: calc(100% - 120px);
     height: 324px;
-    margin-bottom: 40px;
 
 
     .todo__todoTop--greet {
@@ -158,7 +154,6 @@ export default {
     }
     .todo__todoDown--todolist{
       display: flex;
-      height: 100%;
     }
   }
 }

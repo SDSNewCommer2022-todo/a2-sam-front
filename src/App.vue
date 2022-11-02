@@ -23,17 +23,12 @@ export default {
 
 </script>
 <style lang="scss">
-html{
-  height: 100%
-}
-body{
-  display: flex;
-  height: 100%;
+TodoTopBar{
+  width: 100vw;
 }
 .container {
   display: block;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+
 }
 </style>

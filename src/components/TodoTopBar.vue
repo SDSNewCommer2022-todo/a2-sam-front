@@ -1,23 +1,23 @@
 <template>
   <div class="TodoTopBar">
-  <div class="TodoTopBar__title">
-    <img class="TodoTopBar__title--icon" src="../assets/ic_topbar_menu.svg" alt="topbarIcon"/>
-    <span>{{name}}-ToDo</span>
-  </div>
-  <div class="TodoTopBar__date">{{ date }}</div>
+    <div class="TodoTopBar__title">
+      <img class="TodoTopBar__title--icon" src="../assets/ic_topbar_menu.svg" alt="topbarIcon"/>
+      <span>{{ name }}-ToDo</span>
+    </div>
+    <div class="TodoTopBar__date">{{ date }}</div>
   </div>
 </template>
 
 <script>
 export default {
-  props : ["name"],
+  props: ['name'],
   methods: {
     getDate() {
       const today = new Date();
       const month = today.getMonth() + 1;
       const date = today.getDate();
       const dateArr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-      return `${month}/${date} ${dateArr[today.getDay()-1]}`;
+      return `${month}/${date} ${dateArr[today.getDay() - 1]}`;
     }
   },
   data() {
@@ -38,16 +38,11 @@ export default {
   align-items: center;
   padding-left: 16px;
   padding-right: 16px;
-  gap: 530px;
   height: 48px;
-  left: 0px;
-  top: 0px;
   background: #6C77A7;
 
   .TodoTopBar__title {
-    display: flex;
     justify-content: space-around;
-    width: auto;
     height: 28px;
     font-family: 'Roboto';
     font-style: normal;
@@ -59,13 +54,13 @@ export default {
     flex: none;
     order: 1;
     flex-grow: 0;
-    .TodoTopBar__title--icon{
+
+    .TodoTopBar__title--icon {
       margin-right: 13px;
     }
   }
 
   .TodoTopBar__date {
-    width: auto;
     height: 19px;
     font-family: 'Roboto';
     font-style: normal;
