@@ -4,7 +4,7 @@
       <p class="todo__todoTop--greet" >{{ greet }}, {{ $store.getters.getOwner }}</p>
       <div class="todo__todoTop--notice">
         <p class="todo__todoTop--noticeText">You've got</p>
-        <p class="todo__todoTop--noticeTask">0 / {{ totalTask }}</p>
+        <p class="todo__todoTop--noticeTask">{{completedTask}} / {{ totalTask }}</p>
         <p class="todo__todoTop--noticeText">task Today!</p>
       </div>
       <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
@@ -14,7 +14,7 @@
         <MyDropdown :items="items"> </MyDropdown>
       </div>
       <div class="todo__todoDown--todolist">
-      <MyTodoList @getList="getList"></MyTodoList>
+      <MyTodoList @updateTask="updateTask"></MyTodoList>
       </div>
     </div>
   </div>
@@ -34,6 +34,7 @@ export default {
     return {
       greet: '',
       totalTask: 0,
+      completedTask: 0,
       items: ['Oldest','Latest']
     };
   },
@@ -65,6 +66,7 @@ export default {
       axios.post(`http://localhost:8080/api/todo`, {
         'owner': this.$store.getters.getOwner,
         'content': content,
+        'status' : "REGISTERED"
       })
         .then((res) => {
           this.totalTask += 1;
@@ -83,7 +85,21 @@ export default {
           }
           this.addList(todoList);
           this.totalTask = todoList.length
+          this.completedTask = 0;
+          for(let task of this.$store.state.todoList){
+            if(task.status === 'COMPLETED'){
+              this.completedTask += 1;
+            }
+          }
         })
+    },
+    updateTask(task){
+      axios.patch(`http://localhost:8080/api/`, task)
+        .then(() => {
+          this.getList()
+        })
+        .catch(() => {
+        });
     }
   },
   created() {

@@ -3,8 +3,7 @@
     <div class="menuItem" :tabindex="-1" @blur="isOpen = false">
       <div class="menuItem__selectedItem" @click="isOpen = !isOpen">         <!--eslint-disable-line-->
         <p>{{ selectedItem }}</p>
-        <img ref="menuItem__selectedItem--arrowIcon" :src="!isOpen ? arrowDown : arrowUp"
-             alt="arrow"/>
+        <img :src="!isOpen ? arrowDown : arrowUp" alt="arrow"/>
       </div>
       <div class="menuItem__subMenu" :class="{ selectHide : !isOpen }">
         <div class="menuItem__subMenu--items" v-for="(item,i) in items" :key="i" @click="selectOption(item)"> <!--eslint-disable-line-->

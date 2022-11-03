@@ -4,7 +4,7 @@
       <p>There is no task.</p>
     </div>
     <div v-else class="listContainer__todoList">
-      <TodoListItem v-for="todo in this.$store.state.todoList" :key="todo.id" :todo="todo">
+      <TodoListItem v-for="todo in this.$store.state.todoList" :key="todo.id" :todo="todo" @updateTask="updateTask">
       </TodoListItem>
     </div>
   </div>
@@ -17,6 +17,11 @@ export default {
   name: 'MyTodoList',
   components: {
     'TodoListItem': TodoListItem
+  },
+  methods:{
+    updateTask(todo){
+      this.$emit('updateTask',todo)
+    }
   }
 };
 </script>
