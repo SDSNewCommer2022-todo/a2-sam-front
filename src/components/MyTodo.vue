@@ -85,12 +85,7 @@ export default {
           }
           this.addList(todoList);
           this.totalTask = todoList.length
-          this.completedTask = 0;
-          for(let task of this.$store.state.todoList){
-            if(task.status === 'COMPLETED'){
-              this.completedTask += 1;
-            }
-          }
+          this.completedTask = this.$store.getters.getList.length;
         })
     },
     updateTask(task){

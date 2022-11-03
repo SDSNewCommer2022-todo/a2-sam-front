@@ -1,5 +1,8 @@
 <template>
-  <img :src="isChecked ? checkHov : checkNor" @click="check" alt="checkbox" :class="{normal : !isChecked, selected : isChecked}"/> <!--eslint-disable-line-->
+  <div class="container">
+    <img v-if="isChecked" :src="checkHov" @click="check" alt="checkHov" class="container__hov"/> <!--eslint-disable-line-->
+    <img v-else :src="checkNor" @click="check" alt="checkNor" class="container__nor"/> <!--eslint-disable-line-->
+  </div>
 </template>
 
 <script>
@@ -25,14 +28,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.normal:hover{
-    background-color: #000000;
-    opacity: 10%;
-    border-radius: 50%;
+.container{
+  .container__hov{
+    &:hover{
+      background: rgba(42, 130, 240, 0.1);
+      border-radius: 50%;
+    }
+  }
+  .container__nor{
+    &:hover{
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+    }
+  }
 }
-.selected:hover{
-    background-color: #2a82f0;
-    opacity: 10%;
-    border-radius: 50%;
-}
+
 </style>
