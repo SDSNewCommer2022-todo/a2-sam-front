@@ -76,7 +76,6 @@ export default {
       }
     },
     updateContent() {
-      console.log(this.textContent);
       if (this.textContent !== '') {
         this.todo.content = this.textContent;
         this.isEdit = false;
@@ -96,7 +95,6 @@ export default {
       }
     },
     updateDelStatus() {
-      this.todo.status = 'DELETED';
       this.$emit('deleteTask', this.todo.id);
     }
   },

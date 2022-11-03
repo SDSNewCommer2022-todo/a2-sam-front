@@ -1,10 +1,10 @@
 <template>
   <div class="listContainer">
-    <div v-if="$store.state.todoList.length === 0" class="listContainer__empty">
+    <div v-if="$store.getters.getTotalList.length === 0" class="listContainer__empty">
       <p>There is no task.</p>
     </div>
     <div v-else class="listContainer__todoList">
-      <TodoListItem v-for="todo in this.$store.state.todoList" :key="todo.id" :todo="todo" @updateTask="updateTask" @deleteTask="deleteTask">
+      <TodoListItem v-for="todo in this.$store.getters.getTotalList" :key="todo.id" :todo="todo" @updateTask="updateTask" @deleteTask="deleteTask">
       </TodoListItem>
     </div>
   </div>
@@ -41,8 +41,7 @@ p {
 
 .listContainer {
   display: flex;
-  height: 100%;
-  width: 100%;
+  flex: 1;
   align-items: center;
 
   .listContainer__empty {
