@@ -33,6 +33,13 @@ export default {
     selectOption(item) {
       this.selectedItem = item;
       this.isOpen = false;
+      let orderBy = ""
+      if(item === this.items[0]){
+        orderBy = 'ASC'
+      }else if(item === this.items[1]) {
+        orderBy = 'DESC'
+      }
+      this.$emit('selectOption',orderBy);
     },
 
   },

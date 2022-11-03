@@ -11,7 +11,7 @@
           <p>{{ todo.content }}</p>
         </div>
         <p class="listItem__center--date">
-          {{ todo.created_date.substr(5, 2) + '/' + todo.created_date.substr(8, 2) }}
+          {{ todo.createdDate.substr(5, 2) + '/' + todo.createdDate.substr(8, 2) }}
         </p>
       </div>
       <div class="listItem__right">

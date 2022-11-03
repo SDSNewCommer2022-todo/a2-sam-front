@@ -12,7 +12,7 @@
     </div>
     <div class="todo__todoDown">
       <div v-if="totalTask !== 0" class="todo__todoDown--options">
-        <MyDropdown :items="items"></MyDropdown>
+        <MyDropdown :items="items" @selectOption="selectOption"></MyDropdown>
         <div class="todo__todoDown--clearBtn" @click="deleteAll">
           Clear All
         </div>
@@ -39,7 +39,8 @@ export default {
       greet: '',
       totalTask: 0,
       completedTask: 0,
-      items: ['Oldest', 'Latest']
+      items: ['Oldest', 'Latest'],
+      orderBy : 'ASC'
     };
   },
   components: {
@@ -81,7 +82,7 @@ export default {
     },
     /*eslint-disable*/
     getList() {
-      axios.get(`http://localhost:8080/api/?owner=${this.$store.getters.getOwner}`)
+      axios.get(`http://localhost:8080/api/?owner=${this.$store.getters.getOwner}&orderBy=${this.orderBy}`)
         .then((res) => {
           this.addList(res.data);
           this.totalTask = this.$store.getters.getTotalList.length;
@@ -111,6 +112,10 @@ export default {
           this.$store.state.todoList = []
           this.getList();
         })
+    },
+    selectOption(orderBy){
+      this.orderBy = orderBy;
+      this.getList();
     }
   },
   created() {
