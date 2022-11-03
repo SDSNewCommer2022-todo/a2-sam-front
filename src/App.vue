@@ -25,10 +25,12 @@ export default {
 <style lang="scss">
 TodoTopBar{
   width: 100vw;
+  height: 100vh;
 }
 .container {
   display: block;
   flex-direction: column;
+  height: 100%;
 
 }
 </style>

@@ -1,3 +1,4 @@
+<!--eslint-disable-->
 <template>
   <div class="listItem" :class="{ borderAll : isFocusing}">
     <div v-if="!isEdit" class="notEdit">
@@ -5,7 +6,7 @@
         <MyCheckBox class="listItem__left--checkbox" :isChecked="isChecked" @check="check">
         </MyCheckBox>
       </div>
-      <div class="listItem__center" @click="editMode">  <!--eslint-disable-line-->
+      <div class="listItem__center" @click="editMode">
         <div class="listItem__center--content" :class="{textDeco : isChecked}">
           <p>{{ todo.content }}</p>
         </div>
@@ -14,13 +15,18 @@
         </p>
       </div>
       <div class="listItem__right">
-        <img :src="isHover ? removeHov : removeNor" @mouseover="isHover = true" @mouseleave="isHover = false" alt="removebtn" class="listItem__right--removeIcon"/>  <!--eslint-disable-line-->
+        <img :src="isHover ? removeHov : removeNor" @click="updateDelStatus"
+             @mouseover="isHover = true" @mouseleave="isHover = false" alt="removebtn"
+             class="listItem__right--removeIcon"/>
       </div>
     </div>
     <div v-else class="edit">
-      <div class="listItem__container"  >
-        <input type="text" class="listItem__container--textFiled" v-model="textContent" @focusin="isFocusing = true" @blur='blurInput' @keyup.enter="updateContent" ref="refInput" placeholder="Enter your task">  <!--eslint-disable-line-->
-        <img :src="textContent === '' ? sendNor : sendHov"  @click="updateContent" alt="sendIcon" :class="{pointerCursor : textContent !== ''}"><!--eslint-disable-line-->
+      <div class="listItem__container">
+        <input type="text" class="listItem__container--textFiled" v-model="textContent"
+               @focusin="isFocusing = true" @blur='blurInput' @keyup.enter="updateContent"
+               ref="refInput" placeholder="Enter your task">  <!--eslint-disable-line-->
+        <img :src="textContent === '' ? sendNor : sendHov" @click="updateContent" alt="sendIcon"
+             :class="{pointerCursor : textContent !== ''}"><!--eslint-disable-line-->
       </div>
     </div>
   </div>
@@ -48,8 +54,8 @@ export default {
       textContent: '',
       sendHov: sendHovIcon,
       sendNor: sendNorIcon,
-      isFocusing : false,
-      isHover : false,
+      isFocusing: false,
+      isHover: false,
     };
   },
   /*eslint-disable*/
@@ -80,7 +86,7 @@ export default {
         this.$refs.refInput.focus();
       }
     },
-    blurInput(){
+    blurInput() {
       this.isFocusing = false;
       if (this.textContent !== '') {
         this.todo.content = this.textContent;
@@ -88,6 +94,10 @@ export default {
         this.$emit('updateTask', this.todo);
 
       }
+    },
+    updateDelStatus() {
+      this.todo.status = 'DELETED';
+      this.$emit('deleteTask', this.todo.id);
     }
   },
 
@@ -95,13 +105,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.borderAll{
+.borderAll {
   border: 1px solid #2a82f0;
   border-radius: 5px;
 }
-.pointerCursor{
-  cursor : pointer;
+
+.pointerCursor {
+  cursor: pointer;
 }
+
 .textDeco {
   text-decoration-line: line-through;
   color: #000000;
@@ -129,7 +141,8 @@ export default {
       .listItem__left--checkbox {
         display: flex;
         align-items: center;
-        &:hover{
+
+        &:hover {
           cursor: pointer;
         }
       }
@@ -168,13 +181,16 @@ export default {
       }
 
     }
+
     .listItem__right {
       display: flex;
       align-items: center;
-      .listItem__right--removeIcon{
+
+      .listItem__right--removeIcon {
         display: flex;
-        &:hover{
-          cursor:pointer;
+
+        &:hover {
+          cursor: pointer;
           background: url("~/src/assets/btn_remove_hov.svg") no-repeat;
         }
       }
@@ -199,7 +215,7 @@ export default {
         font-size: 16px;
         background: transparent;
 
-        &::placeholder{
+        &::placeholder {
           color: #CCCCCC;
         }
       }

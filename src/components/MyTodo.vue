@@ -10,11 +10,14 @@
       <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
     </div>
     <div class="todo__todoDown">
-      <div class="todo__todoDown--options">
+      <div v-if="totalTask !== 0" class="todo__todoDown--options">
         <MyDropdown :items="items"> </MyDropdown>
+        <div class="todo__todoDown--clearBtn">
+          Clear All
+        </div>
       </div>
       <div class="todo__todoDown--todolist">
-      <MyTodoList @updateTask="updateTask"></MyTodoList>
+      <MyTodoList @updateTask="updateTask" @deleteTask="deleteTask"></MyTodoList>
       </div>
     </div>
   </div>
@@ -80,9 +83,14 @@ export default {
       axios.get(`http://localhost:8080/api/?owner=${this.$store.getters.getOwner}`)
         .then((res) =>{
           const todoList = res.data;
+
           for(let idx in todoList){
+            console.log(todoList[idx].content);
+            console.log(todoList[idx].status);
+
             todoList[idx].status === 'DELETED' ? todoList.splice(idx,1) : '';
           }
+          console.log("######################################################");
           this.addList(todoList);
           this.totalTask = todoList.length
           this.completedTask = this.$store.getters.getList.length;
@@ -90,12 +98,20 @@ export default {
     },
     updateTask(task){
       axios.patch(`http://localhost:8080/api/`, task)
-        .then(() => {
+        .then((res) => {
           this.getList()
         })
         .catch(() => {
         });
-    }
+    },
+    deleteTask(id){
+      axios.delete(`http://localhost:8080/api/${id}`)
+        .then(()=>{
+          this.getList()
+        }).catch(()=>{
+
+      });
+    },
   },
   created() {
     this.greet = this.getGreet();
@@ -108,7 +124,7 @@ export default {
 .todo{
   display: flex;
   flex-direction: column;
-
+  width: 100%;
   .todo__todoTop {
     display: block;
     margin-left: 60px;
@@ -167,9 +183,26 @@ export default {
     .todo__todoDown--options{
       display: flex;
       padding: 24px 60px;
+      justify-content: space-between;
+      align-items: center;
+      .todo__todoDown--clearBtn{
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        padding-right: 14px;
+        &:hover{
+          background: rgba(0, 0, 0, 0.08);
+          border-radius: 4px;
+        }
+      }
+
     }
     .todo__todoDown--todolist{
       display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
     }
   }
 }
