@@ -12,6 +12,12 @@ export default new Vuex.Store({
   getters: {
     getOwner(state){
       return state.inputContent;
+    },
+    getCompletedList(state){
+      return state.todoList.filter(task => task.status === "COMPLETED")
+    },
+    getTotalList(state){
+      return state.todoList.filter(task => task.status !== "DELETED")
     }
   },
   mutations: {
