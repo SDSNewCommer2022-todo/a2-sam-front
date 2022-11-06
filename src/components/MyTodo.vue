@@ -5,7 +5,7 @@
       <p class="todo__todoTop--greet">{{ greet }}, {{ $store.getters.getOwner }}</p>
       <div class="todo__todoTop--notice">
         <p class="todo__todoTop--noticeText">You've got</p>
-        <p class="todo__todoTop--noticeTask">{{ completedTask }} / {{ totalTask }}</p>
+        <p class="todo__todoTop--noticeTask">{{ totalTask - completedTask }} / {{ totalTask }}</p>
         <p class="todo__todoTop--noticeText">task Today!</p>
       </div>
       <TextField v-bind:isBorder="true" @submit="submitTask"></TextField>
@@ -68,7 +68,7 @@ export default {
       return greet;
     },
     submitTask(content) {
-      axios.post(`http://localhost:8080/api/todo`, {
+      axios.post(`http://localhost:8080/todo`, {
         'owner': this.$store.getters.getOwner,
         'content': content,
         'status': 'REGISTERED'
@@ -82,7 +82,7 @@ export default {
     },
     /*eslint-disable*/
     getList() {
-      axios.get(`http://localhost:8080/api/?owner=${this.$store.getters.getOwner}&orderBy=${this.orderBy}`)
+      axios.get(`http://localhost:8080/todo/?owner=${this.$store.getters.getOwner}&orderBy=${this.orderBy}`)
         .then((res) => {
           this.addList(res.data);
           this.totalTask = this.$store.getters.getTotalList.length;
@@ -90,7 +90,7 @@ export default {
         });
     },
     updateTask(task) {
-      axios.patch(`http://localhost:8080/api/`, task)
+      axios.patch(`http://localhost:8080/todo/`, task)
         .then((res) => {
           this.getList();
         })
@@ -98,7 +98,7 @@ export default {
         });
     },
     deleteTask(id) {
-      axios.delete(`http://localhost:8080/api/${id}`)
+      axios.delete(`http://localhost:8080/todo/${id}`)
         .then(() => {
           this.getList();
         })
@@ -107,7 +107,7 @@ export default {
         });
     },
     deleteAll(){
-      axios.delete(`http://localhost:8080/api/?owner=${this.$store.getters.getOwner}`)
+      axios.delete(`http://localhost:8080/todo/?owner=${this.$store.getters.getOwner}`)
         .then(() =>{
           this.$store.state.todoList = []
           this.getList();
@@ -190,6 +190,7 @@ export default {
       padding: 24px 60px;
       justify-content: space-between;
       align-items: center;
+      z-index: 1;
 
       .todo__todoDown--clearBtn {
         display: flex;

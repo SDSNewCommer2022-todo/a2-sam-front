@@ -24,9 +24,9 @@
       <div class="listItem__container">
         <input type="text" class="listItem__container--textFiled" v-model="textContent"
                @focusin="isFocusing = true" @blur='blurInput' @keyup.enter="updateContent"
-               ref="refInput" placeholder="Enter your task">  <!--eslint-disable-line-->
+               placeholder="Enter your task" autofocus>
         <img :src="textContent === '' ? sendNor : sendHov" @click="updateContent" alt="sendIcon"
-             :class="{pointerCursor : textContent !== ''}"><!--eslint-disable-line-->
+             :class="{pointerCursor : textContent !== ''}">
       </div>
     </div>
   </div>
@@ -112,12 +112,6 @@ export default {
   cursor: pointer;
 }
 
-.textDeco {
-  text-decoration-line: line-through;
-  color: #000000;
-  opacity: 0.6;
-}
-
 .listItem {
   display: flex;
   padding: 18px 16px;
@@ -164,6 +158,11 @@ export default {
         font-weight: 500;
         font-size: 16px;
         padding-left: 16px;
+
+        &.textDeco {
+          text-decoration-line: line-through;
+          opacity: 0.6;
+        }
       }
 
       .listItem__center--date {
