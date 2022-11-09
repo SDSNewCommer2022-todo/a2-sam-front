@@ -23,6 +23,9 @@ export default {
 
 </script>
 <style lang="scss">
+html{
+  height: 100%;
+}
 TodoTopBar{
   width: 100vw;
   height: 100vh;
@@ -31,6 +34,5 @@ TodoTopBar{
   display: block;
   flex-direction: column;
   height: 100%;
-
 }
 </style>
