@@ -130,6 +130,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 100vh;
 
   .todo__todoTop {
     display: block;
@@ -183,8 +184,7 @@ export default {
     display: flex;
     flex-direction: column;
     background: #F2F2F2;
-    min-height: 400px;
-
+    flex: 1;
     .todo__todoDown--options {
       display: flex;
       padding: 24px 60px;
